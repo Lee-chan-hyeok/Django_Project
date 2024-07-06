@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% load django_bootstrap5 %}
+{% block contents %}
+
+<div class="container my-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <h4>회원가입</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <a href="{% url 'account:login' %}" class="btn btn-outline-primary">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <form method="post" class="post-form">
+        {% csrf_token %}
+        
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">가입</button>
+    </form>
+</div>
+
+{% endblock contents %}
+

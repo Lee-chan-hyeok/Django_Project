@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block contents %}
+
+<div class="container my-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <h4>회원가입</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <a href="{% url 'account:login' %}" class="btn btn-outline-primary">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <form method="post" class="post-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="username">사용자 이름</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="이름을 입력하세요."
+                    value="{{form.username.value|default_if_none:''}}">
+        </div>
+        <div class="form-group">
+            <label for="nickname">닉네임</label>
+            <input type="text" class="form-control" name="nickname" id="nickname" placeholder="닉네임을 입력하세요."
+                    value="{{form.nickname.value|default_if_none:''}}">
+        </div>
+        <div class="form-group">
+            <label for="password1">비밀번호</label>
+            <input type="password" class="form-control" name="password1" id="password1" placeholder="비밀번호를 입력하세요."
+                    value="{{form.password1.value|default_if_none:''}}">
+        </div>
+        <div class="form-group">
+            <label for="password2">비밀번호 확인</label>
+            <input type="password" class="form-control" name="password2" id="password2" placeholder="동일한 비밀번호를 입력하세요."
+                    value="{{form.password2.value|default_if_none:''}}">
+        </div>
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="text" class="form-control" name="email" id="email"
+                    value="{{form.email.value|default_if_none:''}}" placeholder="이메일을 입력하세요. (필수 X)">
+        </div>
+        <div class="form-group">
+            <label for="phone">연락처</label>
+            <input type="text" class="form-control" name="phone" id="phone"
+                    value="{{form.phone.value|default_if_none:''}}" placeholder="ex) 010-1234-5678">
+        </div>
+        <button type="submit" class="btn btn-primary">가입</button>
+    </form>
+</div>
+
+{% endblock contents %}

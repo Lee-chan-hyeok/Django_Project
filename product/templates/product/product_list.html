@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}상품 목록{% endblock title %}
+{% block contents %}
+<h1> 상품 목록 리스트 </h1>
+<div class="list-group mt-4">
+    {% for product in p_list %}
+    <a href="{% url 'product:product_info' product.pk %}" class="list-group-item list-group-item-action">
+        {{product.product_name}} - {{product.product_price}}원 <br>
+    </a>
+    {% endfor %}
+</div>
+<ul class="pagination mt-3 mb-5">
+    {% if has_previous %}
+        <li class="page-item">
+            <a href="{% url 'product:product_list'%}?page={{previous_page_no}}" class="page-link">이전</a>
+        </li>
+    {% else %}
+        <!-- 시작 페이지의 이전 페이지가 있다면. -->
+         <li class="page-item">
+            <span class="page-link">이전</span>
+         </li>
+    {%endif%}
+
+    <!-- 페이지 링크 -->
+    {% for page in page_range %}
+        {% if page == p_list.number %}
+            <li class="page-item active">
+                <span class="page-link">{{page}}</span>
+            </li>
+        {%else%}
+            <li class="page-item">
+                <a href="{% url 'product:product_list' %}?page={{page}}" class="page-link">{{page}}</a>
+            </li>
+        {%endif%}
+    {%endfor%}
+
+    <!-- 다음 페이지 이동 링크 -->
+    {% if has_next %}
+        <li class="page-item">
+            <a href="{% url 'product:product_list'%}?page={{next_page_no}}" class="page=link">다음</a>
+        </li>
+    {%else%}
+        <li class="page-item">
+            <span class="page-link">다음</span>
+        </li>
+    {%endif%}
+    
+</ul>
+<div class="mx-auto">
+    <a href="{% url 'product:product_create' %}" class="btn btn-primary float-right">상품 등록</a>
+</div>
+{% endblock contents %}
