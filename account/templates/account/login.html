@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+
 {% block contents %}
 
 <div class="container my-3">
@@ -24,19 +25,19 @@
         </div>
         
         <div class="container text-center">
-            <button type="submit" class="btn btn-primary btn-lg">로그인</button>
+            <button type="submit" class="btn btn-primary btn-lg mt-2">로그인</button>
         </div>
     </form>
     <div class="container">
         <div class="row text-center mt-3">
             <div class="col">
-                <a href="#">ID 찾기</a>
+                <a href="#" class="btn btn-outline-secondary">ID 찾기</a>
             </div>
             <div class="col">
-                <a href="#">PW 찾기</a>
+                <a href="#" class="btn btn-outline-secondary">PW 찾기</a>
             </div>
-            <div class="col">
-                <a href="{% url 'account:signup' %}">회원가입</a>
+            <div class="col" >
+                <a href="{% url 'account:signup' %}" class="btn btn-outline-secondary">회원가입</a>
             </div>
         </div>
     </div>

@@ -1,17 +1,25 @@
 {% extends "layout.html" %}
 {% block title %}상품 정보{% endblock title %}
 {% block contents %}
-<h1> 상품 정보 </h1>
-{% if product.product_img %}
-    <img src="{{product.product_img.url}}" width="500">
-{% else %}
-    <img src="/static/product/imgs/no_img.png" width="500">
-{% endif %}
-<h3>상품 이름 : {{product.product_name}}</h3>
-<h3>상품 가격 : {{product.product_price}}원</h3>
-<h4>상품 상세정보 : {{product.product_info}} </h4>
-<div class="mt-2">
-    <a href="{% url 'product:product_fix' product.pk %}" class="btn btn-primary">수정하기</a>
-    <a href="{% url 'product:product_list' %}" class="btn btn-primary">뒤로가기</a>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div>
+        <h1 class="text-center">상품 정보</h1>
+        <div class="card text-center" style="width: 500px;">
+            {% if product.product_img %}
+                <img class="card-img-top" src="{{product.product_img.url}}" style="width:100%">
+            {% else %}
+                <img class="card-img-top" src="/static/product/imgs/no_img.png" style="width:100%">
+            {% endif %}
+            <div class="card-body">
+                <h3 class="card-title">{{product.product_name}}</h3>
+                <h4 class="card-title">가격 : {{product.product_price}}원</h4>
+                <p class="card-text">{{product.product_info}}</p>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'product:product_fix' product.pk %}" class="btn btn-primary">수정하기</a>
+                <a href="{% url 'product:product_list' %}" class="btn btn-secondary">뒤로가기</a>
+            </div>
+        </div>
+    </div>
 </div>
-{% endblock contents%}
+{% endblock contents %}

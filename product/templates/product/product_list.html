@@ -1,15 +1,31 @@
 {% extends "layout.html" %}
 {% block title %}상품 목록{% endblock title %}
 {% block contents %}
-<h1> 상품 목록 리스트 </h1>
-<div class="list-group mt-4">
+<div class="d-flex justify-content-between align-items-center">
+    <h1> 상품 목록 리스트 </h1>
+    <a href="{% url 'product:product_create' %}" class="btn btn-primary">상품 등록</a>
+</div>
+<div class="row row-cols-1 row-cols-md-4 g-4" >
     {% for product in p_list %}
-    <a href="{% url 'product:product_info' product.pk %}" class="list-group-item list-group-item-action">
-        {{product.product_name}} - {{product.product_price}}원 <br>
-    </a>
+    <div class="col">
+        <div class="card h-100" >
+            <a href="{% url 'product:product_info' product.pk %}" class="list-group-item list-group-item-action">
+                {% if product.product_img %}
+                    <img class="card-img-top" src="{{product.product_img.url}}" >
+                {% else %}
+                    <img class="card-img-top" src="/static/product/imgs/no_img.png" >
+                {% endif %}
+                
+                <div class="card-body">
+                    <h3 class="card-title"> {{product.product_name}}</h3>
+                    <h4 class="card-tite">가격 : {{product.product_price}}원</h4>
+                </div>
+            </a>
+        </div>
+    </div>
     {% endfor %}
 </div>
-<ul class="pagination mt-3 mb-5">
+<ul class="pagination mt-3 mb-5 justify-content-center">
     {% if has_previous %}
         <li class="page-item">
             <a href="{% url 'product:product_list'%}?page={{previous_page_no}}" class="page-link">이전</a>
@@ -46,7 +62,7 @@
     {%endif%}
     
 </ul>
-<div class="mx-auto">
-    <a href="{% url 'product:product_create' %}" class="btn btn-primary float-right">상품 등록</a>
-</div>
+
+
 {% endblock contents %}
+
