@@ -145,5 +145,6 @@ STATICFILES_DIRS = [BASE_DIR/"static_files"]
 STATIC_ROOT = BASE_DIR / 'static'
 
 # 로그인 성공 시 자동으로 이동할 URL
+LOGIN_URL = '/account/login'  # 로그인 안한 사용자가 @login_required View를 호출했을 때 이동.
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

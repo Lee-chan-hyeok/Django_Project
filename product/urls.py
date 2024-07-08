@@ -10,5 +10,6 @@ urlpatterns= [
     path("product_fix/<int:product_id>" , views.product_fix , name="product_fix"),
     path("product_edit/" , views.product_edit , name="product_edit"),
     path("product_del/<int:product_id>" , views.product_del , name="product_del"),
+    path("product_search/" , views.product_search , name="product_search")
 
 ]

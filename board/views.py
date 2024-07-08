@@ -4,6 +4,7 @@ from .models import Question, Answer#, Comment
 from django.utils import timezone
 from .forms import QuestionForm, AnswerForm#, CommentForm
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     """
@@ -49,7 +50,7 @@ def answer_create(request, question_id):
         form = AnswerForm()
     context = {'question': question, 'form': form}
     return render(request, 'board/question_detail.html', context)
-
+@login_required 
 def question_create(request):
     """
     질문 등록

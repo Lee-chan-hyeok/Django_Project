@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Search{% endblock title %}
+{% block contents %}
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div>
+            {% if searched %}
+            <h1 class="text-center"> 검색하신 {{searched}} 에 대한 정보 입니다.</h4>
+            <br>
+                {%for product in products%}
+                <div class="card text-center" style="width: 500px;">
+                    {% if product.product_img %}
+                        <img class="card-img-top" src="{{product.product_img.url}}" style="width:100%">
+                    {% else %}
+                        <img class="card-img-top" src="/static/product/imgs/no_img.png" style="width:100%">
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{product.product_name}}</h3>
+                        <h4 class="card-title">가격 : {{product.product_price}}원</h4>
+                        <p class="card-text">{{product.product_info}}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        {% if user.is_superuser %}
+                        <a href="{% url 'product:product_fix' product.pk %}" class="btn btn-primary">수정하기</a>
+                        {%endif%}
+                        <a href="{% url 'product:product_list' %}" class="btn btn-secondary">뒤로가기</a>
+                    </div>
+                    
+                </div>
+                <br>
+                {%endfor%}
+            {%else%}
+                <h4> 찾고 있는 제품을 검색창에 입력해 주세요.</h4>
+            {%endif%}
+        </div>
+    </div>
+{% endblock contents %}

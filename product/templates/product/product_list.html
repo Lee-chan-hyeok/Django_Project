@@ -1,9 +1,22 @@
 {% extends "layout.html" %}
 {% block title %}상품 목록{% endblock title %}
 {% block contents %}
-<div class="d-flex justify-content-between align-items-center">
-    <h1> 상품 목록 리스트 </h1>
-    <a href="{% url 'product:product_create' %}" class="btn btn-primary">상품 등록</a>
+<div class="d-flex bd-highlight mb-3">
+    <div class="me-auto p-2 bd-highlight"> <h4>상품 목록 리스트</h4> </div>
+    <form class="d-flex" method="POST" action="{% url  'product:product_search'%}">
+        {% csrf_token %}
+        <div class="p-2 bd-highlight">
+            <input class="form-control me-2" type="text" placeholder="Search" name="searched">
+        </div> 
+        <div class="p-2 bd-highlight">   
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form> 
+    {% if user.is_superuser %}
+    <div class="p-2 bd-highlight">
+        <a href="{% url 'product:product_create' %}" class="btn btn-primary">상품 등록</a>
+    </div>
+    {%endif%}
 </div>
 <div class="row row-cols-1 row-cols-md-4 g-4" >
     {% for product in p_list %}

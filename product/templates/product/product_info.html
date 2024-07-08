@@ -16,7 +16,9 @@
                 <p class="card-text">{{product.product_info}}</p>
             </div>
             <div class="card-footer text-center">
+                {% if user.is_superuser %}
                 <a href="{% url 'product:product_fix' product.pk %}" class="btn btn-primary">수정하기</a>
+                {%endif%}
                 <a href="{% url 'product:product_list' %}" class="btn btn-secondary">뒤로가기</a>
             </div>
         </div>

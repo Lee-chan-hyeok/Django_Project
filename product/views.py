@@ -4,6 +4,7 @@ from django.urls import reverse
 from .forms import ProductUpdateForm
 
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def product_list(request):
@@ -66,6 +67,7 @@ def product_info(request , product_id):
     print("없는 제품입니다.")
 
 # 상품 등록
+@login_required 
 def product_create(request):
     if request.method == "GET":
         return render(request, "product/product_create.html" , {"form":ProductUpdateForm})
@@ -78,10 +80,12 @@ def product_create(request):
             return render(request, "product/product_create.html",{"form":form})
 
 # 상품 수정을 띄울화면
+@login_required 
 def product_edit(request):
     return render(request , "product/product_edit.html")
 
 # 상품 수정
+@login_required 
 def product_fix(request , product_id):
     product = get_object_or_404(ProductUpdate, pk=product_id)
     if request.method == 'GET' :
@@ -99,7 +103,21 @@ def product_fix(request , product_id):
             return render(request , "product/product_edit.html" , {"form":form})
 
 # 상품 삭제
+@login_required 
 def product_del(request , product_id):
     product = ProductUpdate.objects.get(pk=product_id)
     product.delete()
     return redirect(reverse("product:product_list"))
+
+# 상품 조회
+def product_search(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        product = ProductUpdate.objects.filter(product_name__contains=searched)
+        for i in product:
+            print(i.product_name)
+        print(searched)
+        return render(request, 'product/product_search.html' , {'searched' : searched,'products':product})
+    else:
+        return render(request , 'product/product_search.html')
+    

@@ -8,9 +8,10 @@
     <table>
         {% bootstrap_form form %}
     </table>
+    {% if user.is_superuser %}
     <input type="submit" class="btn btn-primary" value="수정">
     <a href="{% url 'product:product_del' product_id %}" onclick="return confirm=('정말 삭제하시겠습니까?')" class="btn btn-danger">삭제</a>
     <a href="javascript:history.back()" class="btn btn-primary">뒤로가기</a>
-    
+    {%endif%}
 </form>
 {% endblock contents %}

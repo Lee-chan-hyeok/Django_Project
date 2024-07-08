@@ -7,10 +7,12 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
+    {% if user.is_superuser %}
     <div class="mt-3">
         <button type="submit"  class="btn btn-primary">상품 등록</button>
         <button type="reset" class="btn btn-primary">초기화</button>
         <a href="{% url 'product:product_list' %}" class="btn btn-primary">뒤로가기</a>
     </div>
+    {%endif%}
 </form>
 {% endblock contents %}

@@ -32,24 +32,25 @@
         </div>
     </div>
     {% endfor %}
-
-    <form action="{% url 'board:answer_create' question.id %}" method="post" class="my-3">
-        {% csrf_token %}
-        {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-        {% for field in form %}
-            {% if field.errors %}
-            <strong>{{ field.label }}</strong>
-            {{ field.errors }}
+    {% if user.is_authenticated or user.is_superuser %}
+        <form action="{% url 'board:answer_create' question.id %}" method="post" class="my-3">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
             {% endif %}
-        {% endfor %}
-        </div>
-        {% endif %}
 
-        <div class="form-group">
-            <textarea name="content" id="content" class="form-control" rows="10"></textarea>
-        </div>
-        <input type="submit" value="답변 등록" class="btn btn-primary">
-    </form>
+            <div class="form-group">
+                <textarea name="content" id="content" class="form-control" rows="10"></textarea>
+            </div>
+            <input type="submit" value="답변 등록" class="btn btn-primary mt-2">
+        </form>
+    {%endif%}
 </div>
 {% endblock contents %}
