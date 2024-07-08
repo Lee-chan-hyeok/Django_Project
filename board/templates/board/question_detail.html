@@ -12,12 +12,15 @@
                 <div>{{ question.create_date }}</div>
             </div>
         </div>
+
+        {% if request.user == question.author %}
         <div class="my-3">
-            {% if request.user == question.author %}
             <a href="{% url 'board:question_modify' question.id  %}" 
                class="btn btn-sm btn-outline-secondary">수정</a>
-            {% endif %}
+            <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                data-url="{% url 'board:question_delete' question.id %}">삭제</a>
         </div>
+        {% endif %}
     </div>
 </div>
     <h5 class="border-bottom my-3 py-2">
@@ -58,3 +61,16 @@
     {%endif%}
 </div>
 {% endblock contents %}
+
+{% block script %}
+<scrypt type="text/javascript">
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</scrypt>
+{% endblock %}

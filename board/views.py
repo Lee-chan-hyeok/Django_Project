@@ -54,6 +54,7 @@ def answer_create(request, question_id):
         form = AnswerForm()
     context = {'question': question, 'form': form}
     return render(request, 'board/question_detail.html', context)
+
 @login_required 
 def question_create(request):
     """
@@ -74,16 +75,18 @@ def question_create(request):
     return render(request, 'board/question_form.html', context)
 
 @login_required
-
 def question_modify(request, question_id):
+    ''' board 질문 수정 '''
     question = get_object_or_404(Question, pk=question_id)
     if request.user != question.author:
         messages.error(request, '수정권한이 없습니다')
         return redirect('board:detail', question_id=question.id)
+    
     if request.method == "POST":
         form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             question = form.save(commit=False)
+            question.author = request.user
             question.modify_date = timezone.now()  # 수정일시 저장
             question.save()
             return redirect('board:detail', question_id=question.id)
@@ -91,6 +94,16 @@ def question_modify(request, question_id):
         form = QuestionForm(instance=question)
     context = {'form': form}
     return render(request, 'board/question_form.html', context)
+
+@login_required
+def question_delete(request, question_id):
+    ''' board 질문 삭제 '''
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user != question.author:
+        messages.error(request, '삭제 권한이 없습니다.')
+        return redirect('board:detail', question_id=question_id)
+    question.delete()
+    return redirect('board:index')
 
 # def comment_create_question(request, question_id):
 #     """
