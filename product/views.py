@@ -75,7 +75,7 @@ def product_create(request):
         form = ProductUpdateForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse("product:product_create"))
+            return redirect(reverse("product:product_list"))
         else :
             return render(request, "product/product_create.html",{"form":form})
 
