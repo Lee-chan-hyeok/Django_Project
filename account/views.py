@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect 
 from .forms import UserForm
 from django.urls import reverse
@@ -22,3 +23,15 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'account/signup.html', {'form': form})
+
+def delete(request):
+        user = User.objects.get(pk=request.user.pk)
+        user.delete()
+        logout(request)
+        return redirect(reverse('home'))
+
+##### 로그인한 사용자 정보 조회
+def user_detail(request):
+    ## 로그인한 사용자 정보 -> request.user
+    user = User.objects.get(pk=request.user.pk)
+    return render(request, "account/detail.html", {"object":user})

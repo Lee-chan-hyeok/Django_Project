@@ -1,0 +1,25 @@
+<!-- account/templates/account/detail.html -->
+{% extends 'layout.html'%}
+{% block title%}My Info{% endblock title%}
+
+{% block contents%}
+<table class="table">
+    <tr>
+        <th>계정명</th>
+        <td>{{object.username}}</td>
+    </tr>
+    <tr>
+        <th>이름</th>
+        <td>{{object.name}}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{object.email}}</td>
+    </tr>
+</table>
+
+<div class="mt-3">
+    <a href="{% url 'account:delete' %}" 
+        class="btn btn-danger" onclick="return confirm('정말 탈퇴하시나요?')">탈퇴</a>
+</div>
+{% endblock contents%}
