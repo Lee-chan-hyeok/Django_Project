@@ -34,5 +34,15 @@
     <div class="container mt-4">
         {% block contents %}{%endblock contents%}
     </div>
+    <!-- 자바스크립트 Start -->
+    {% block script %}
+        {% for question in question_list %}
+        <div>
+            <h2>{{ question.title }}</h2>
+            <a href="{% url 'board:question_delete' question.id %}"></a>
+        </div>
+        {% endfor %}
+    {% endblock %}
+    <!-- 자바스크립트 End -->
 </body>
 </html>
